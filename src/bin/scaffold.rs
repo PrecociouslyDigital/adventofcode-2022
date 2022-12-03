@@ -8,7 +8,7 @@ use std::{
     process,
 };
 
-const MODULE_TEMPLATE: &str = r###"pub fn part_one(input: &str) -> Option<u32> {
+const MODULE_TEMPLATE: &str = r###"pub fn part_one(input: &str) -> Result<u32, str_err::StringError> {
     None
 }
 
