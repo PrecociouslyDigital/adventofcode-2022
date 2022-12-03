@@ -1,8 +1,5 @@
-use std::iter::repeat;
-
 use advent_of_code::helpers::err::{self, TokenError};
 use itertools::Itertools;
-use seq_macro::seq;
 
 pub fn part_one(input: &str) -> Result<u32, impl err::Error> {
     // Does the spec guarentee that blank lines are blank and not just whitespace?
