@@ -16,7 +16,7 @@ pub fn part_one(input: &str) -> Result<u32, impl err::Error> {
                     }),
                     Ok(cal) => Ok(cal),
                 })
-                .fold_ok(0u32, std::ops::Add::add)
+                .fold_ok(u32::MIN, std::ops::Add::add)
         })
         .fold_ok(u32::MIN, std::cmp::max)
 }
