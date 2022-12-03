@@ -22,7 +22,7 @@ pub fn part_one(input: &str) -> Result<u32, impl err::Error> {
 }
 
 pub fn part_two(input: &str) -> Result<u32, impl err::Error> {
-    let mut calories_by_elf = input.split("\n\n").map(|elf_input: &str| {
+    let calories_by_elf = input.split("\n\n").map(|elf_input: &str| {
         elf_input
             .split("\n")
             .filter(|elf| !elf.is_empty())
