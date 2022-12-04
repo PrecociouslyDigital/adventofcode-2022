@@ -1,16 +1,9 @@
+
 pub mod err {
     use std::fmt;
-    #[macro_export] macro_rules! tokenerr {
-        ($expected:tt, $reason:tt) => {{
-            err::TokenError{
-                token: $expected
-                reason: $reason
-            }
-        }};
-    }
+    use std::error::Error;
 
-    pub use tokenerr;
-    pub trait Error = fmt::Debug + fmt::Display;
+
 
     // Now we will be able to write our own errors, defer to an underlying error
     #[derive(Debug, Clone)]
@@ -23,6 +16,10 @@ pub mod err {
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             f.write_fmt(format_args!("Could not parse {} because {}", &self.token, &self.reason))
         }
+    }
+
+    impl Error for TokenError {
+
     }
 
 }

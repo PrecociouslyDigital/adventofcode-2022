@@ -8,14 +8,16 @@ use std::{
     process,
 };
 
-const MODULE_TEMPLATE: &str = r###"pub fn part_one(input: &str) -> Result<u32, str_err::StringError> {
-    None
+const MODULE_TEMPLATE: &str = r###"
+use advent_of_code::helpers::err;
+
+pub fn part_one(input: &str) -> Result<u32, impl err::Error> {
+
 }
 
-pub fn part_two(input: &str) -> Option<u32> {
-    None
-}
+pub fn part_two(input: &str) -> Result<u32, impl err::Error> {
 
+}
 fn main() {
     let input = &advent_of_code::read_file("inputs", DAY);
     advent_of_code::solve!(1, part_one, input);
@@ -26,18 +28,22 @@ fn main() {
 mod tests {
     use super::*;
 
+    macro_rules! get_input {
+        () => {
+            &advent_of_code::read_file("inputs", DAY)
+        };
+    }
     #[test]
     fn test_part_one() {
-        let input = advent_of_code::read_file("examples", DAY);
-        assert_eq!(part_one(&input), None);
+        part_one(get_input!()).expect("First set of inputs resolves to a value.");
     }
 
     #[test]
     fn test_part_two() {
-        let input = advent_of_code::read_file("examples", DAY);
-        assert_eq!(part_two(&input), None);
+        part_two(get_input!()).expect("Second set of inputs resolves to a value.");
     }
 }
+
 "###;
 
 fn parse_args() -> Result<u8, pico_args::Error> {

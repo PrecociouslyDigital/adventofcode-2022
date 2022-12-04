@@ -1,7 +1,8 @@
 use advent_of_code::helpers::err::{self, TokenError};
 use itertools::Itertools;
+use std::error::Error;
 
-pub fn part_one(input: &str) -> Result<u32, impl err::Error> {
+pub fn part_one(input: &str) -> Result<u32, impl Error> {
     // Does the spec guarentee that blank lines are blank and not just whitespace?
     input
         .split("\n\n")
@@ -21,7 +22,7 @@ pub fn part_one(input: &str) -> Result<u32, impl err::Error> {
         .fold_ok(u32::MIN, std::cmp::max)
 }
 
-pub fn part_two(input: &str) -> Result<u32, impl err::Error> {
+pub fn part_two(input: &str) -> Result<u32, impl Error> {
     let calories_by_elf = input.split("\n\n").map(|elf_input: &str| {
         elf_input
             .split("\n")
