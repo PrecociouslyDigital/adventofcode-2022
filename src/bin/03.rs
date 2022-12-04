@@ -1,4 +1,3 @@
-
 use advent_of_code::helpers::err::TokenError;
 use itertools::Itertools;
 use std::{error::Error};
