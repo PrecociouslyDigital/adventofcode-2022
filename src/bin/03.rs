@@ -4,11 +4,6 @@ use std::{error::Error};
 use seq_macro::seq;
 
 
-const b'A':u8 = b'A';
-const b'Z':u8 =b'Z';
-const b'a':u8 =b'a';
-const b'z':u8 = b'z';
-
 macro_rules! check_ASCII_bounds {
     ($byte:ident) => {
         if $byte < &b'A' || $byte > &b'z' {
