@@ -10,12 +10,13 @@ use std::{
 
 const MODULE_TEMPLATE: &str = r###"
 use advent_of_code::helpers::err;
+use std::error;
 
-pub fn part_one(input: &str) -> Result<u32, impl err::Error> {
+pub fn part_one(input: &str) -> Result<u32, impl error::Error> {
 
 }
 
-pub fn part_two(input: &str) -> Result<u32, impl err::Error> {
+pub fn part_two(input: &str) -> Result<u32, impl error::Error> {
 
 }
 fn main() {

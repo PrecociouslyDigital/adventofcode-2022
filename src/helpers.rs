@@ -3,8 +3,6 @@ pub mod err {
     use std::fmt;
     use std::error::Error;
 
-
-
     // Now we will be able to write our own errors, defer to an underlying error
     #[derive(Debug, Clone)]
     pub struct TokenError {

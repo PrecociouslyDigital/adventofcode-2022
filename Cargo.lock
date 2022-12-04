@@ -7,6 +7,7 @@ name = "advent_of_code"
 version = "0.8.0"
 dependencies = [
  "itertools",
+ "macro_const",
  "num-derive",
  "num-traits",
  "pico-args",
@@ -34,6 +35,12 @@ checksum = "b0fd2260e829bddf4cb6ea802289de2f86d6a7a690192fbe91b3f46e0f2c8473"
 dependencies = [
  "either",
 ]
+
+[[package]]
+name = "macro_const"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0a3ce974efca8c8fafc305ad68708850b8b5842f73546e32f95719640518de6a"
 
 [[package]]
 name = "num-derive"
