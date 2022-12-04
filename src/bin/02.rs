@@ -1,6 +1,6 @@
 use advent_of_code::helpers::err::TokenError;
 use itertools::Itertools;
-use std::{error::Error, iter::Sum};
+use std::{error::Error};
 
 // We get a tiiiiiny bit of extra performance in L1/L2(?) caches if we reduce the size of these; no point going below a byte because we can't address closer than that though (and the stack needs to remain 16-aligned).
 #[repr(u8)]
@@ -80,14 +80,16 @@ S S T 2 2 0
 #[inline(always)]
 fn rps(opp: RPS, you: RPS) -> Outcome {
     // Evil hack. Be very careful here. speedy_transmute look safe but is actually unsafe so yannow there's that.
-    unsafe { totally_speedy_transmute::speedy_transmute((opp as u8 + opp as u8 + you as u8 + 1u8) % 3u8) }
+    // We should never end up with a value that isn't a valid RPS value thanks to the %3u8 so don't touch that.
+    unsafe { std::mem::transmute((opp as u8 + opp as u8 + you as u8 + 1u8) % 3u8) }
 }
 
 #[inline(always)]
 fn solve_rps(opp: RPS, out: Outcome) -> RPS {
     // Again, another evil hack. Be very careful.
     // This is the inverse of RPS, which should be easily derived; we add 8 instead of subtracting 1 because we're in base 3 and we need to make sure that the unsigned int doesn't go negative.
-    unsafe { totally_speedy_transmute::speedy_transmute((out as u8 + 8u8 - opp as u8 - opp as u8) % 3u8) }
+    
+    unsafe { std::mem::transmute((out as u8 + 8u8 - opp as u8 - opp as u8) % 3u8) }
 }
 
 pub fn part_one(input: &str) -> Result<u32, impl Error> {
