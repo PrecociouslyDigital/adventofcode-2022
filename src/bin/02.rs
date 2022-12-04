@@ -19,6 +19,46 @@ enum Outcome {
     Tie,
     Win,
 }
+
+#[inline]
+fn try_from_opp(letter: &str) -> Result<RPS, TokenError> {
+    match letter {
+        "A" => Ok(RPS::Rock),
+        "B" => Ok(RPS::Paper),
+        "C" => Ok(RPS::Scissors),
+        _ => Err(TokenError {
+            token: letter.to_string(),
+            reason: "Unexpected token, expecting A B or C".to_string(),
+        }),
+    }
+}
+
+#[inline]
+fn try_from_out(letter: &str) -> Result<Outcome, TokenError> {
+    match letter {
+        "X" => Ok(Outcome::Lose),
+        "Y" => Ok(Outcome::Tie),
+        "Z" => Ok(Outcome::Win),
+        _ => Err(TokenError {
+            token: letter.to_string(),
+            reason: "Unexpected token, expecting X Y or Z".to_string(),
+        }),
+    }
+}
+
+#[inline]
+fn try_from_you(letter: &str) -> Result<RPS, TokenError> {
+    match letter {
+        "X" => Ok(RPS::Rock),
+        "Y" => Ok(RPS::Paper),
+        "Z" => Ok(RPS::Scissors),
+        _ => Err(TokenError {
+            token: letter.to_string(),
+            reason: "Unexpected token, expecting X Y or Z".to_string(),
+        }),
+    }
+}
+
 /*
 This is kinda dumb but it works and is probably super fast. There's something here about finite groups operations but meh
 
@@ -36,42 +76,6 @@ S S T 2 2 0
 
 2 * opp + you + 1 % 3
 */
-#[inline(always)]
-fn try_from_opp(letter: &str) -> Result<RPS, TokenError> {
-    match letter {
-        "A" => Ok(RPS::Rock),
-        "B" => Ok(RPS::Paper),
-        "C" => Ok(RPS::Scissors),
-        _ => Err(TokenError {
-            token: letter.to_string(),
-            reason: "Unexpected token, expecting A B or C".to_string(),
-        }),
-    }
-}
-
-fn try_from_out(letter: &str) -> Result<Outcome, TokenError> {
-    match letter {
-        "X" => Ok(Outcome::Lose),
-        "Y" => Ok(Outcome::Tie),
-        "Z" => Ok(Outcome::Win),
-        _ => Err(TokenError {
-            token: letter.to_string(),
-            reason: "Unexpected token, expecting X Y or Z".to_string(),
-        }),
-    }
-}
-
-fn try_from_you(letter: &str) -> Result<RPS, TokenError> {
-    match letter {
-        "X" => Ok(RPS::Rock),
-        "Y" => Ok(RPS::Paper),
-        "Z" => Ok(RPS::Scissors),
-        _ => Err(TokenError {
-            token: letter.to_string(),
-            reason: "Unexpected token, expecting X Y or Z".to_string(),
-        }),
-    }
-}
 
 #[inline(always)]
 fn rps(opp: RPS, you: RPS) -> Outcome {
