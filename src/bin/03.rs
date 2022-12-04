@@ -4,22 +4,22 @@ use std::{error::Error};
 use seq_macro::seq;
 
 
-const ASCII_A:u8 = 65u8;
-const ASCII_Z:u8 =90u8;
-const ASCII_A_LOWERCASE:u8 =97u8;
-const ASCII_Z_LOWERCASE:u8 = 122u8;
+const b'A':u8 = b'A';
+const b'Z':u8 =b'Z';
+const b'a':u8 =b'a';
+const b'z':u8 = b'z';
 
 macro_rules! check_ASCII_bounds {
     ($byte:ident) => {
-        if $byte < &ASCII_A || $byte > &ASCII_Z_LOWERCASE {
+        if $byte < &b'A' || $byte > &b'z' {
                 return match String::from_utf8(vec![*$byte]) {
                     Ok(token) => Err(TokenError{
                         token: format! ("{:?} which maps to {token}", $byte),
-                        reason: format!("Expected a value between {ASCII_A} (ascii/utf-8 A) and {ASCII_Z_LOWERCASE} (ascii/utf-8 z)")
+                        reason: format!("Expected a value between {b'A'} (ascii/utf-8 A) and {b'z'} (ascii/utf-8 z)")
                     }),
                     Err(_err) => Err(TokenError{
                         token: format!("{:?}", $byte),
-                        reason: format!("Expected a value between {ASCII_A} (ascii/utf-8 A) and {ASCII_Z_LOWERCASE} (ascii/utf-8 z)")
+                        reason: format!("Expected a value between {b'A'} (ascii/utf-8 A) and {b'z'} (ascii/utf-8 z)")
                     }),
                 }
             }
@@ -29,11 +29,11 @@ macro_rules! check_ASCII_bounds {
 macro_rules! get_priority_from_ascii {
     ($byte:ident) => {
         match $byte {
-            ASCII_A..=ASCII_Z => Ok(($byte - &ASCII_A + 27) as u32),
-            ASCII_A_LOWERCASE..=ASCII_Z_LOWERCASE => Ok(($byte - &ASCII_A_LOWERCASE + 1) as u32),
+            b'A'..=b'Z' => Ok(($byte - &b'A' + 27) as u32),
+            b'a'..=b'z' => Ok(($byte - &b'a' + 1) as u32),
             _ => Err(TokenError {
                             token: String::from_utf8(vec![*$byte]).expect("We got this byte from another utf string"),
-                            reason: format!("Expected a value not within {ASCII_Z} (Z) and {ASCII_A_LOWERCASE} (a) (implies non-alphabetic character)"),
+                            reason: format!("Expected a value not within {b'Z'} (Z) and {b'a'} (a) (implies non-alphabetic character)"),
                         })
         }
     };
@@ -41,7 +41,7 @@ macro_rules! get_priority_from_ascii {
 
 #[inline(always)]
 fn get_ascii_shift(&byte: &u8) -> u64 {
-    1u64 << (byte-ASCII_A)
+    1u64 << (byte-b'A')
 }
 
 #[inline(always)]
