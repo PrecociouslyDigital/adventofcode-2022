@@ -1,6 +1,4 @@
 #![feature(trait_alias)]
-#[macro_use]
-extern crate num_derive;
 
 /*
  * This file contains template code.
