@@ -9,6 +9,7 @@ publish = false
 
 [features]
 trait_alias = []
+iter_next_chunk = []
 
 [dependencies]
 custom_derive = "0.1.7"

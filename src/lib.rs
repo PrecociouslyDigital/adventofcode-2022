@@ -1,7 +1,7 @@
 #![feature(trait_alias)]
 #![feature(buf_read_has_data_left)]
 #![feature(anonymous_lifetime_in_impl_trait)]
-
+#![feature(iter_next_chunk)]
 
 /*
  * This file contains template code.
