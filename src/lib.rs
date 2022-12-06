@@ -1,4 +1,7 @@
 #![feature(trait_alias)]
+#![feature(buf_read_has_data_left)]
+#![feature(anonymous_lifetime_in_impl_trait)]
+
 
 /*
  * This file contains template code.
@@ -7,6 +10,7 @@
  */
 use std::env;
 use std::fs;
+use std::io;
 
 pub mod helpers;
 
@@ -51,6 +55,17 @@ pub fn read_file(folder: &str, day: u8) -> String {
 
     let f = fs::read_to_string(filepath);
     f.expect("could not open input file")
+}
+
+pub fn open_file_buffer(folder: &str, day: u8) -> io::Result<io::BufReader<fs::File>> {
+    let cwd = env::current_dir().unwrap();
+
+    let filepath = cwd.join("src").join(folder).join(format!("{:02}.txt", day));
+
+    let f = fs::File::open(filepath)?;
+
+    return Ok(io::BufReader::new(f));
+
 }
 
 fn parse_time(val: &str, postfix: &str) -> f64 {

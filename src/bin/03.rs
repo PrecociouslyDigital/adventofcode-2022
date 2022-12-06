@@ -10,11 +10,11 @@ macro_rules! check_ASCII_bounds {
                 return match String::from_utf8(vec![*$byte]) {
                     Ok(token) => Err(TokenError{
                         token: format! ("{:?} which maps to {token}", $byte),
-                        reason: format!("Expected a value between {b'A'} (ascii/utf-8 A) and {b'z'} (ascii/utf-8 z)")
+                        reason: format!("Expected a value between {} (ascii/utf-8 A) and {} (ascii/utf-8 z)", b'A', b'z')
                     }),
                     Err(_err) => Err(TokenError{
                         token: format!("{:?}", $byte),
-                        reason: format!("Expected a value between {b'A'} (ascii/utf-8 A) and {b'z'} (ascii/utf-8 z)")
+                        reason: format!("Expected a value between {} (ascii/utf-8 A) and {} (ascii/utf-8 z)", b'A', b'z')
                     }),
                 }
             }
@@ -28,7 +28,7 @@ macro_rules! get_priority_from_ascii {
             b'a'..=b'z' => Ok(($byte - &b'a' + 1) as u32),
             _ => Err(TokenError {
                             token: String::from_utf8(vec![*$byte]).expect("We got this byte from another utf string"),
-                            reason: format!("Expected a value not within {b'Z'} (Z) and {b'a'} (a) (implies non-alphabetic character)"),
+                            reason: format!("Expected a value not within {} (Z) and {} (a) (implies non-alphabetic character)", b'Z', b'a'),
                         })
         }
     };
