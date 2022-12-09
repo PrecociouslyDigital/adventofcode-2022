@@ -1,4 +1,3 @@
-
 pub mod err {
     use std::fmt;
     use std::error::Error;

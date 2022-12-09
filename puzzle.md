@@ -1,97 +1,41 @@
-\--- Day 7: No Space Left On Device ---
+\--- Day 8: Treetop Tree House ---
 ----------
 
-You can hear birds chirping and raindrops hitting leaves as the expedition proceeds. Occasionally, you can even hear much louder sounds in the distance; how big do the animals get out here, anyway?
+The expedition comes across a peculiar patch of tall trees all planted carefully in a grid. The Elves explain that a previous expedition planted these trees as a reforestation effort. Now, they're curious if this would be a good location for a [tree house](https://en.wikipedia.org/wiki/Tree_house).
 
-The device the Elves gave you has problems with more than just its communication system. You try to run a system update:
+First, determine whether there is enough tree cover here to keep a tree house *hidden*. To do this, you need to count the number of trees that are *visible from outside the grid* when looking directly along a row or column.
 
-```
-$ system-update --please --pretty-please-with-sugar-on-top
-Error: No space left on device
+The Elves have already launched a [quadcopter](https://en.wikipedia.org/wiki/Quadcopter) to generate a map with the height of each tree (your puzzle input). For example:
 
 ```
-
-Perhaps you can delete some files to make space for the update?
-
-You browse around the filesystem to assess the situation and save the resulting terminal output (your puzzle input). For example:
-
-```
-$ cd /
-$ ls
-dir a
-14848514 b.txt
-8504156 c.dat
-dir d
-$ cd a
-$ ls
-dir e
-29116 f
-2557 g
-62596 h.lst
-$ cd e
-$ ls
-584 i
-$ cd ..
-$ cd ..
-$ cd d
-$ ls
-4060174 j
-8033020 d.log
-5626152 d.ext
-7214296 k
+30373
+25512
+65332
+33549
+35390
 
 ```
 
-The filesystem consists of a tree of files (plain data) and directories (which can contain other directories or files). The outermost directory is called `/`. You can navigate around the filesystem, moving into or out of directories and listing the contents of the directory you're currently in.
+Each tree is represented as a single digit whose value is its height, where `0` is the shortest and `9` is the tallest.
 
-Within the terminal output, lines that begin with `$` are *commands you executed*, very much like some modern computers:
+A tree is *visible* if all of the other trees between it and an edge of the grid are *shorter* than it. Only consider trees in the same row or column; that is, only look up, down, left, or right from any given tree.
 
-* `cd` means *change directory*. This changes which directory is the current directory, but the specific result depends on the argument:
-  * `cd x` moves *in* one level: it looks in the current directory for the directory named `x` and makes it the current directory.
-  * `cd ..` moves *out* one level: it finds the directory that contains the current directory, then makes that directory the current directory.
-  * `cd /` switches the current directory to the outermost directory, `/`.
+All of the trees around the edge of the grid are *visible* - since they are already on the edge, there are no trees to block the view. In this example, that only leaves the *interior nine trees* to consider:
 
-* `ls` means *list*. It prints out all of the files and directories immediately contained by the current directory:
-  * `123 abc` means that the current directory contains a file named `abc` with size `123`.
-  * `dir xyz` means that the current directory contains a directory named `xyz`.
+* The top-left `5` is *visible* from the left and top. (It isn't visible from the right or bottom since other trees of height `5` are in the way.)
+* The top-middle `5` is *visible* from the top and right.
+* The top-right `1` is not visible from any direction; for it to be visible, there would need to only be trees of height *0* between it and an edge.
+* The left-middle `5` is *visible*, but only from the right.
+* The center `3` is not visible from any direction; for it to be visible, there would need to be only trees of at most height `2` between it and an edge.
+* The right-middle `3` is *visible* from the right.
+* In the bottom row, the middle `5` is *visible*, but the `3` and `4` are not.
 
-Given the commands and output in the example above, you can determine that the filesystem looks visually like this:
+With 16 trees visible on the edge and another 5 visible in the interior, a total of `*21*` trees are visible in this arrangement.
 
-```
-- / (dir)
-  - a (dir)
-    - e (dir)
-      - i (file, size=584)
-    - f (file, size=29116)
-    - g (file, size=2557)
-    - h.lst (file, size=62596)
-  - b.txt (file, size=14848514)
-  - c.dat (file, size=8504156)
-  - d (dir)
-    - j (file, size=4060174)
-    - d.log (file, size=8033020)
-    - d.ext (file, size=5626152)
-    - k (file, size=7214296)
+Consider your map; *how many trees are visible from outside the grid?*
 
-```
-
-Here, there are four directories: `/` (the outermost directory), `a` and `d` (which are in `/`), and `e` (which is in `a`). These directories also contain files of various sizes.
-
-Since the disk is full, your first step should probably be to find directories that are good candidates for deletion. To do this, you need to determine the *total size* of each directory. The total size of a directory is the sum of the sizes of the files it contains, directly or indirectly. (Directories themselves do not count as having any intrinsic size.)
-
-The total sizes of the directories above can be found as follows:
-
-* The total size of directory `e` is *584* because it contains a single file `i` of size 584 and no other directories.
-* The directory `a` has total size *94853* because it contains files `f` (size 29116), `g` (size 2557), and `h.lst` (size 62596), plus file `i` indirectly (`a` contains `e` which contains `i`).
-* Directory `d` has total size *24933642*.
-* As the outermost directory, `/` contains every file. Its total size is *48381165*, the sum of the size of every file.
-
-To begin, find all of the directories with a total size of *at most 100000*, then calculate the sum of their total sizes. In the example above, these directories are `a` and `e`; the sum of their total sizes is `*95437*` (94853 + 584). (As in this example, this process can count files more than once!)
-
-Find all of the directories with a total size of at most 100000. *What is the sum of the total sizes of those directories?*
-
-To begin, [get your puzzle input](7/input).
+To begin, [get your puzzle input](8/input).
 
 Answer:
 
-You can also [Shareon [Twitter](https://twitter.com/intent/tweet?text=%22No+Space+Left+On+Device%22+%2D+Day+7+%2D+Advent+of+Code+2022&url=https%3A%2F%2Fadventofcode%2Ecom%2F2022%2Fday%2F7&related=ericwastl&hashtags=AdventOfCode) [Mastodon](javascript:void(0);)] this puzzle.
+You can also [Shareon [Twitter](https://twitter.com/intent/tweet?text=%22Treetop+Tree+House%22+%2D+Day+8+%2D+Advent+of+Code+2022&url=https%3A%2F%2Fadventofcode%2Ecom%2F2022%2Fday%2F8&related=ericwastl&hashtags=AdventOfCode) [Mastodon](javascript:void(0);)] this puzzle.

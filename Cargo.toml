@@ -13,6 +13,7 @@ iter_next_chunk = []
 
 [dependencies]
 custom_derive = "0.1.7"
+enum-display-derive = "0.1.1"
 enum_derive = "0.1.7"
 itertools = "0.10.5"
 macro_const = "0.1.0"
@@ -22,4 +23,5 @@ pico-args = "0.5.0"
 readonly = "0.2.2"
 replace_with = "0.1.7"
 seq-macro = "0.3.1"
+strum_macros = "0.24.3"
 unicode-segmentation = "1.10.0"
